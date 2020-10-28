@@ -3,9 +3,11 @@
 #include <thread>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 using namespace std;
 using namespace this_thread;
+using namespace chrono;
 
 class Personaj
 {
@@ -39,10 +41,19 @@ public:
         return hp;
     }
 
+    void get_hit(int damage_enemy) {
+        hp -= damage_enemy;
+    }
+
     string get_name() {
         return nume;
     }
 
+    int get_speed() {
+        return speed;
+    }
+
+    /*
     // calculeaza distanta dintre personaje, iar daca adversarul a intrat in raza de atac
     // schimb starea de engage in "true" pentru a putea incepe atacul
     void engaged_update(Personaj Enemy)
@@ -50,23 +61,66 @@ public:
         float distanta = abs(Enemy.locatie - locatie);
         if (distanta <= range)
             //if (target == Enemy.transport || target)
-                engaged = true;
+            engaged = true;
     }
+    */
 
     // inainteaza personajul in cazul in care mai traieste si
     // nu este intr-o batalie, in acest caz ar trebui sa stea
     // functia va fi apelata 1data/s si deci pot adauga la locatie
     // direct valoarea lui speed.
-    int locatie_update() {
+    void locatie_update() {
+        //this_thread::sleep_for(chrono::seconds(1));
         if (hp > 0 && !engaged)
             locatie = locatie + speed;
     }
 
-    Personaj();
+    // cauta adversari in raza sa de atac, iar daca gaseste, starea de
+    // engage devine 1 si functie se opreste
+    void search(char field[]) {
+        for(int i=locatie-range-1; i<locatie+range; i++)
+            if ((i >= 0 && field[i] != '.') || (i<=40 && field[i] != '.'))
+            {
+                engaged = 1;
+                break;
+            }
+    }
+
+    void automat(char field[], Personaj Enemy)
+    {
+        while (hp > 0)
+        {
+            search(field);
+            if (engaged == 0)
+            {
+                locatie_update();
+                afisare_camp(field, &Enemy);
+                this_thread::sleep_for(chrono::seconds(1));
+            }
+            else
+            {
+                this_thread::sleep_for(chrono::milliseconds(hitspeed)); 
+                Enemy.get_hit(damage);
+            }
+        }
+        locatie = 0;
+    }
+
+    Personaj() {
+        nume = "";
+        hitspeed = 0;
+        speed = 0;
+        range = 0;
+        hp = 0;
+        damage = 0;
+        transport = 0;
+        target = 0;
+        reset_factor = 0;
+    }
 
     // cu acest constructor creez cartile disponibile
-    Personaj(string in_nume, int in_hitspeed, float in_speed, float in_range, int in_hp, 
-                int in_damage, bool in_transport, bool in_target, bool in_reset_factor) {
+    Personaj(string in_nume, int in_hitspeed, float in_speed, float in_range, int in_hp,
+        int in_damage, bool in_transport, bool in_target, bool in_reset_factor) {
         nume = in_nume;
         hitspeed = in_hitspeed;
         speed = in_speed;
@@ -78,54 +132,75 @@ public:
         reset_factor = in_reset_factor;
     }
 
-    // cu acest consturctor creez personajul cu care ne jucam in aceasta tura
-    Personaj(const Personaj& jucator, float in_locatie) :
-        hitspeed{ jucator.hitspeed },
-        speed{ jucator.speed },
-        range{ jucator.range },
-        hp {jucator.hp },
-        damage{ jucator.damage },
-        transport{ jucator.transport },
-        target{ jucator.target },
-        reset_factor { jucator.reset_factor }
-    {
+    // cu aceasta functie atribui personajul cu care ne jucam in aceasta tura
+    void copy(const Personaj& jucator, float in_locatie){
+        nume = jucator.nume;
+        hitspeed = jucator.hitspeed;
+        speed = jucator.speed;
+        range = jucator.range;
+        hp = jucator.hp;
+        damage = jucator.damage;
+        transport = jucator.transport;
+        target = jucator.target;
+        reset_factor = jucator.reset_factor;
         locatie = in_locatie;
     }
 
-    // cu acest consturctor creez adversarul cu care ne jucam in aceasta tura
+    // cu aceasta functie atribui adversarul cu care ne jucam in aceasta tura
     // diferenta este ca el trebuie sa mearga invers
-    Personaj(const Personaj& jucator, float in_locatie, int mod_viteza) :
-        hitspeed{ jucator.hitspeed },
-        speed{ jucator.speed },
-        range{ jucator.range },
-        hp{ jucator.hp },
-        damage{ jucator.damage },
-        transport{ jucator.transport },
-        target{ jucator.target },
-        reset_factor{ jucator.reset_factor }
-    {
+    void copy_adv(const Personaj& jucator, float in_locatie){
+        nume = jucator.nume;
+        hitspeed = jucator.hitspeed;
+        speed = jucator.speed;
+        range = jucator.range;
+        hp = jucator.hp;
+        damage = jucator.damage;
+        transport = jucator.transport;
+        target = jucator.target;
+        reset_factor = jucator.reset_factor;
         locatie = in_locatie;
-        speed *= mod_viteza;
+        speed *= -1;
+    }
+
+    // ..W...........B..
+    void afisare_camp(char field[], Personaj* Enemy)
+    {
+        if (Enemy->get_hp() > 0 && hp > 0)
+        {
+            system("CLS");
+            strcpy_s(field, 42, ".........................................");
+            field[(int)Enemy->locatie - 1] = Enemy->get_name()[0];
+            field[(int)locatie - 1] = nume[0];
+            cout << field << '\n';
+
+            printf("\n");
+            stats(*Enemy);
+
+            //this_thread::sleep_for(chrono::seconds(1));
+        }
+
+        // dupa ce a murit un personaj
+        system("CLS");
+        if (Enemy->get_hp() > 0)
+            printf("%s a invins!\n", Enemy->get_name().c_str());
+        else
+            printf("%s a invins!\n", nume.c_str());
+        printf("\n");
+        stats(*Enemy);
+    }
+
+    void stats(Personaj& Enemy)
+    {
+        printf("%s \nHP: %d \nLocatie: %.2f \nViteza: %d\n\n", Enemy.get_name().c_str(), Enemy.get_hp(), Enemy.locatie, Enemy.get_speed());
+        printf("%s \nHP: %d \nLocatie: %.2f\nViteza: %d", nume.c_str(), hp, locatie, speed);
     }
 
 };
 
 
-// ..W...........B..
-void afisare_camp(Personaj& Enemy, Personaj& Friend)
-{
-    //system("CLS");
-    for (int i = -20; i <= 20; i++)
-    {   
-        if (i == Friend.locatie)
-            cout << Friend.get_name()[0];
-        else if (i == Enemy.locatie)
-            cout << Enemy.get_name()[0];
-        else
-            cout << ".";
-    }
-    cout << '\n';
-}
+
+
+
 
 
 int main() {
@@ -133,57 +208,61 @@ int main() {
     Personaj Bowler("Bowler", 2500, 2, 4, 1898, 262, 0, 0, 0);
     Personaj BebeDragon("Baby Dragon", 1500, 4.5, 3.5, 1051, 146, 1, 1, 0);
     Personaj Priza("Electro Wizard", 1800, 4.5, 5, 649, 210, 0, 1, 1);
-    
+
     // fara aceasta declarare de aici nu pot apela thread-ul "field"
     Personaj Enemy;
     Personaj Friendly;
+    //string field(41, '.');
+    char field[] = ".........................................";
 
     srand(time(NULL));
     int nr = rand() % 4 + 1;
-    float locatie = abs(rand() % 20 + 1);
-
+    float locatie = abs(rand() % 20 + 21); // plus 21 pentru ca trebuie sa fie in a doua jumatate a sirului
+    
     if (nr == 1)
-        Personaj Enemy = Personaj(Magician, locatie, -1);
+        Enemy.copy_adv(Magician, locatie);
     if (nr == 2)
-        Personaj Enemy = Personaj(Bowler, locatie, -1);
+        Enemy.copy_adv(Bowler, locatie);
     if (nr == 3)
-        Personaj Enemy = Personaj(BebeDragon, locatie, -1);
+        Enemy.copy_adv(BebeDragon, locatie);;
     if (nr == 4)
-        Personaj Enemy = Personaj(Priza, locatie, -1);
+        Enemy.copy_adv(Priza, locatie);
 
     nr = rand() % 4 + 1;
-    locatie = 0 - abs(rand() % 20 + 1);
+    locatie = abs(rand() % 20 + 1);
 
     if (nr == 1)
-        Personaj Friendly = Personaj(Magician, locatie);
+        Friendly.copy(Magician, locatie);
     if (nr == 2)
-        Personaj Friendly = Personaj(Bowler, locatie);
-    if (nr == 3) 
-        Personaj Friendly = Personaj(BebeDragon, locatie);
-    if (nr == 4) 
-        Personaj Friendly = Personaj(Priza, locatie);
+        Friendly.copy(Bowler, locatie);;
+    if (nr == 3)
+        Friendly.copy(BebeDragon, locatie);
+    if (nr == 4)
+        Friendly.copy(Priza, locatie);
 
-    //thread field(afisare_camp, &Enemy, &Friendly);
 
+        thread enemy_t(&Personaj::automat, Enemy, field, Friendly);
+        thread friendly_t(&Personaj::automat, Friendly, field, Enemy);
+
+        enemy_t.join();
+        friendly_t.join();
+
+
+    //thread field_t(afisare_camp, field, &Enemy, &Friendly);
+
+    //friendly.join();
+    //enemy.join();
+    //field_t.join();
     /*
     while(Enemy.get_hp() > 0 && Friendly.get_hp() > 0)
-    { 
+    {
         afisare_camp(Enemy, Friendly);
-        
+
     }
     */
-
-    cout << Enemy.get_name()[0];
-
-    //field.join();
-  
-
     
-
-
+    //field.join();
 }
-
-
 
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
