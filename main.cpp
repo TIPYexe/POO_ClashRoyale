@@ -189,19 +189,21 @@ void Personaj::automat(char field[], Personaj& Enemy)
     {   
         if (engaged == 0)
         {
-            search(field); //separ un search de locatie_update pt ca altfel ar face un pas
-                           //chiar daca s-au spawnat unul langa altul
-            if (engaged == 0) //verific daca a devenit engaged pt a nu face pasi in plus
+            search(field); // separ un search de locatie_update pt ca altfel ar face un pas
+                           // chiar daca s-au spawnat unul langa altul
+            if (locatie == Enemy.get_locatie()) // in cazul in care range<speed si ajung sa se suprapuna,
+                engaged = 1;                    // aici, search nu ar schimba starea de engage
+            if (engaged == 0) // verific daca a devenit engaged pt a nu face pasi in plus
             {
                 locatie_update();
-                sleep_for(chrono::seconds(1)); //viteza pasilor e masurata pe secunda
+                sleep_for(chrono::seconds(1)); // viteza pasilor e masurata pe secunda
             }
         }
         else
         {
-            sleep_for(chrono::milliseconds(hitspeed)); //mai intai trebuie sa treaca 
-                                                       //timpul de charge al atacului
-            if((Enemy.get_transport() == target) || target) //verific daca il poate ataca
+            sleep_for(chrono::milliseconds(hitspeed)); // mai intai trebuie sa treaca 
+                                                       // timpul de charge al atacului
+            if((Enemy.get_transport() == target) || target) // verific daca il poate ataca
                 Enemy.get_hit(damage);
         }
     }
