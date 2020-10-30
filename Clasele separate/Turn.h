@@ -5,14 +5,15 @@
 #include <thread>
 
 #include "Personaj.h"
-//class Personaj;
+
+class Personaj;
 
 class Turn
 {
 private:
-	
+
 	//friend class Personaj;
-	
+
 	int hp;
 	int range;
 	int damage;
@@ -45,14 +46,8 @@ public:
 		hp -= damage_primit;
 	}
 
-	void automat(Personaj& Enemy) {
-		while (abs(Enemy.get_locatie() - locatie) <= range)
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(hitspeed));
-			Enemy.get_hit(damage);
-		}
-	}
 
+	void automat(Personaj& Enemy);
 };
 
 #endif // !TURN_H
