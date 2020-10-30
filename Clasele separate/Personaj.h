@@ -9,10 +9,10 @@
 
 #include "Turn.h"
 
-using namespace std;
-using namespace this_thread;
+//using namespace std;
+//using namespace this_thread;
 
-//class Turn;
+class Turn;
 
 class Personaj
 {
@@ -39,7 +39,7 @@ private:
 	// statistici lupta
 	//bool engaged; // 0 = nu se lupta; 1 = se lupta
 
-	string nume;
+	std::string nume;
 
 public:
 
@@ -51,7 +51,7 @@ public:
 		return hp;
 	}
 
-	string get_name() {
+	std::string get_name() {
 		return nume;
 	}
 
@@ -109,41 +109,6 @@ public:
 		return 0;
 	}
 
-	int search_turn(Turn Tower) {
-		if (abs(Tower.get_locatie() - locatie) <= range)
-			return 1;
-		return 0;
-	}
-
-	void automat(Personaj& Enemy, Turn Tower) {
-		while (Enemy.get_hp() > 0 && hp > 0)
-		{
-			if (!search_enemy(Enemy) && !search_turn(Tower))
-			{
-			e:
-				locatie_update();
-				this_thread::sleep_for(std::chrono::seconds(1)); // viteza pasilor e masurata pe secunda
-			}
-			else
-			{
-				if (search_enemy(Enemy))
-					if ((Enemy.get_transport() == target) || target) // verific daca il poate ataca
-					{
-						this_thread::sleep_for(std::chrono::milliseconds(hitspeed)); // mai intai trebuie sa treaca 
-																   // timpul de charge al atacului
-						Enemy.get_hit(damage);
-					}
-					else
-						goto e;
-				if (search_turn(Tower))
-				{
-					this_thread::sleep_for(std::chrono::milliseconds(hitspeed));
-					Tower.get_hit(damage);
-				}
-			}
-		}
-	}
-
 	Personaj() {
 		nume = "";
 		hitspeed = 0;
@@ -158,7 +123,7 @@ public:
 	}
 
 	// cu acest constructor creez cartile disponibile
-	Personaj(string in_nume, int in_hitspeed, int in_speed, int in_range, int in_hp,
+	Personaj(std::string in_nume, int in_hitspeed, int in_speed, int in_range, int in_hp,
 		int in_damage, bool in_transport, bool in_target, bool in_reset_factor) {
 		nume = in_nume;
 		hitspeed = in_hitspeed;
@@ -201,6 +166,9 @@ public:
 		speed *= -1;
 	}
 
+	int search_turn(Turn Tower);
+
+	void automat(Personaj& Enemy, Turn Tower);
 };
 
 #endif // !PERSONAJ_H
