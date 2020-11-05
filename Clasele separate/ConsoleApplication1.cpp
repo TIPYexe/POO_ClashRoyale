@@ -20,8 +20,8 @@ int main() {
 	Personaj Enemy;
 	Personaj Friendly;
 
-	Turn Inamic(0);
-	Turn Prieten(42);
+	Turn Inamic(42);
+	Turn Prieten(0);
 
 	Harta Field;
 
@@ -37,24 +37,28 @@ int main() {
 
 	// fiecare meteoda si functia de afisare a hartii+stats ruleaza pe cate un thread
 	// pentru ca toate aceste functii trebuie sa ruleze simultan
-	std::thread enemy(&Personaj::automat, std::ref(Enemy), std::ref(Friendly));     // am pasat obiectele ca referinte pentru ca altfel
-	std::thread friendly(&Personaj::automat, std::ref(Friendly), std::ref(Enemy));  // nu se modificau valorile, si deci nu aveau relevanta 
-	std::thread field_t(&Harta::afisare_camp, std::ref(Enemy), std::ref(Friendly)); // nici harta nici statisticile, ramaneau neschimbate
+	std::thread enemy(&Personaj::automat, std::ref(Enemy), std::ref(Friendly), std::ref(Prieten), std::ref(Inamic));     // am pasat obiectele ca referinte pentru ca altfel
+	std::thread friendly(&Personaj::automat, std::ref(Friendly), std::ref(Enemy), std::ref(Inamic), std::ref(Prieten));  // nu se modificau valorile, si deci nu aveau relevanta 
+	std::thread turn_inamic(&Turn::automat, std::ref(Inamic), std::ref(Friendly));	
+	std::thread turn_prieten(&Turn::automat, std::ref(Prieten), std::ref(Enemy));
+	std::thread field_t(&Harta::afisare_camp, std::ref(Field), std::ref(Enemy), std::ref(Friendly), std::ref(Inamic), std::ref(Prieten)); // nici harta nici statisticile, ramaneau neschimbate
 
 	enemy.join();
 	friendly.join();
+	turn_inamic.join();
+	turn_prieten.join();
 	field_t.join();
 	
 
 	// la finalul jocului
 	system("CLS");
-	if (Enemy.get_hp() > 0 && Friendly.get_hp() <= 0)
-		printf("%s a invins!\n", Enemy.get_name().c_str());
-	else if (Enemy.get_hp() <= 0 && Friendly.get_hp() > 0)
-		printf("%s a invins!\n", Friendly.get_name().c_str());
+	int rezultat = Field.game_end(std::ref(Enemy), std::ref(Friendly), std::ref(Inamic), std::ref(Prieten));
+	if (rezultat == 1)
+		std::cout << "AM CASTIGAT!\n\n\n";
+	else if (rezultat == 2)
+		std::cout << "AM PIERDUT!\n\n\n";
 	else
-		printf("EGALITATE!\n");
-	printf("\n");
-	Field.stats(Enemy, Friendly);
+		std::cout << "EGALITATE!\n\n\n";
+	Field.stats(Enemy, Friendly, Inamic, Prieten, 1);
 
 }
