@@ -13,6 +13,7 @@
 //using namespace this_thread;
 
 class Turn;
+class Harta;
 
 class Personaj
 {
@@ -76,38 +77,11 @@ public:
 	// nu este intr-o batalie, in acest caz ar trebui sa stea
 	// functia va fi apelata 1data/s si deci pot adauga la locatie
 	// direct valoarea lui speed.
-	void locatie_update() {
-		if (hp > 0)
-			locatie += speed;
-		if (locatie < 0)
-			locatie = 0;
-		if (locatie > 40)
-			locatie = 40;
-	}
+	void locatie_update();
 
 	// cauta adversari in raza sa de atac, iar daca gaseste, starea de
 	// engage devine 1 si functie se opreste
-	/*
-	void search(char field[])
-	{
-		for (int i = locatie - range - 1; i < locatie + range; i++)
-		{
-			if(i>=0 && i<=40 && i!=(locatie-1))
-				if (field[i] != '.')
-				{
-					engaged = 1;
-					break;
-				}
-		}
-	}
-	*/
-
-	int search_enemy(Personaj Enemy)
-	{
-		if (abs(Enemy.get_locatie() - locatie) <= range)
-			return 1;
-		return 0;
-	}
+	int search_enemy(Personaj Enemy);
 
 	Personaj() {
 		nume = "";
@@ -137,38 +111,11 @@ public:
 	}
 
 	// cu aceasta functie atribui personajul cu care ne jucam in aceasta tura
-	void copy(const Personaj& jucator, int in_locatie) {
-		nume = jucator.nume;
-		hitspeed = jucator.hitspeed;
-		speed = jucator.speed;
-		range = jucator.range;
-		hp = jucator.hp;
-		damage = jucator.damage;
-		transport = jucator.transport;
-		target = jucator.target;
-		reset_factor = jucator.reset_factor;
-		locatie = in_locatie;
-	}
-
-	// cu aceasta functie atribui adversarul cu care ne jucam in aceasta tura
-	// diferenta este ca el trebuie sa mearga invers
-	void copy_adv(const Personaj& jucator, int in_locatie) {
-		nume = jucator.nume;
-		hitspeed = jucator.hitspeed;
-		speed = jucator.speed;
-		range = jucator.range;
-		hp = jucator.hp;
-		damage = jucator.damage;
-		transport = jucator.transport;
-		target = jucator.target;
-		reset_factor = jucator.reset_factor;
-		locatie = in_locatie;
-		speed *= -1;
-	}
+	void copy(const Personaj& jucator, int in_locatie, int sens);
 
 	int search_turn(Turn Tower);
 
-	void automat(Personaj& Enemy, Turn Tower);
+	void automat(Personaj& Enemy, Turn& Tower, Turn& Echipa);
 };
 
 #endif // !PERSONAJ_H
