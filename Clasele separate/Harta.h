@@ -17,9 +17,11 @@ private:
 
 public:
 
-	void afisare_camp(Personaj& Enemy, Personaj& Friend);
+	int game_end(Personaj& Enemy, Personaj& Friend, Turn& Inamic, Turn& Prieten);
 
-	void stats(Personaj Enemy, Personaj Friend);
+	void afisare_camp(Personaj& Enemy, Personaj& Friend, Turn& Inamic, Turn& Prieten);
+
+	void stats(Personaj Enemy, Personaj Friend, Turn Inamic, Turn Prieten, int i);
 };
 
 #endif
