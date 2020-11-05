@@ -46,7 +46,6 @@ public:
 		hp -= damage_primit;
 	}
 
-
 	void automat(Personaj& Enemy);
 };
 
