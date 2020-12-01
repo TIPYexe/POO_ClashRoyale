@@ -28,11 +28,11 @@ int main() {
 	srand(time(NULL));
 	int nr = rand() % 4;
 	int locatie = abs(rand() % 20 + 21); // +21 pt ca trebuie sa fie in a doua jumatate
-	Enemy.copy_adv(Carti[nr], locatie);
+	Enemy.copy(Carti[nr], locatie, -1);
 
 	nr = rand() % 4;
 	locatie = abs(rand() % 20 + 1);
-	Friendly.copy(Carti[nr], locatie);
+	Friendly.copy(Carti[nr], locatie, 1);
 
 
 	// fiecare meteoda si functia de afisare a hartii+stats ruleaza pe cate un thread
