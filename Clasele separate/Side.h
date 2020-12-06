@@ -20,7 +20,6 @@ public:
 		Personaj::set_speed(sens);
 		Personaj::set_locatie(locatie);
 	}
-
 };
 
 #endif
