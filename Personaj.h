@@ -91,7 +91,8 @@ public:
 	// engage devine 1 si functie se opreste
 	int search_enemy(Personaj Enemy);
 
-	Personaj() {
+	Personaj(): nume{""}, hitspeed{0}, speed{0}, range{0},
+	hp{0}, damage{0}, transport{0},target{0}, reset_factor{0}{
 		nume = "";
 		hitspeed = 0;
 		speed = 0;
@@ -123,7 +124,7 @@ public:
 
 	int search_turn(Turn Tower);
 
-	void automat(Personaj& Enemy, Turn& Tower, Turn& Echipa);
+	void automat(Personaj& Enemy, Turn& Turn_inamic, Turn& Echipa);
 };
 
 #endif // !PERSONAJ_H

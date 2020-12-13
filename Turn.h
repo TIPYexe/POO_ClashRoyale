@@ -47,6 +47,10 @@ public:
 	}
 
 	void automat(Personaj& Enemy);
+
+	void reset_position(int loc){
+	    locatie = loc;
+	}
 };
 
 #endif // !TURN_H

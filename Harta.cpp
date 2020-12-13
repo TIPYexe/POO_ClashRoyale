@@ -42,8 +42,8 @@ void Harta::stats(Personaj Enemy, Personaj Friend, Turn Inamic, Turn Prieten, in
 void Harta::afisare_camp(Personaj& Enemy, Personaj& Friend, Turn& Inamic, Turn& Prieten) {
     while (game_end(Enemy, Friend, Inamic, Prieten) == -1)
     {
-        system("CLS");
-        strcpy_s(field, 42, "........................................."); //resetez toate pozitiile cu "."
+        //system("CLS");
+        strcpy(field, "........................................."); //resetez toate pozitiile cu "."
         field[Enemy.get_locatie() - 1] = Enemy.get_name()[0];			  //pun initialele numelor pesonajelor acolo unde trebuie
         field[Friend.get_locatie() - 1] = Friend.get_name()[0];
 
@@ -54,7 +54,7 @@ void Harta::afisare_camp(Personaj& Enemy, Personaj& Friend, Turn& Inamic, Turn& 
         std::cout << "\n";
         stats(Enemy, Friend, Inamic, Prieten, 0); // afisez si statistici despre personaje
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(17)); // face jocul sa fie in 60FPS, si se vede mai bine ca personajele
+        std::this_thread::sleep_for(std::chrono::milliseconds(500)); // face jocul sa fie in 60FPS, si se vede mai bine ca personajele
         // isi dau atacurile pe rand, deci functioneaza delay-ul
     }
 }

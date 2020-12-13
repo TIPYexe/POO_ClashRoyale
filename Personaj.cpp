@@ -28,10 +28,10 @@ void Personaj::copy(const Personaj& jucator) {
     reset_factor = jucator.reset_factor;
 }
 
-void Personaj::automat(Personaj& Enemy, Turn& Tower, Turn& Turn_echipa) {
-    while (hp > 0 && Turn_echipa.get_hp() > 0 && (Enemy.get_hp() > 0 || Tower.get_hp() > 0))
+void Personaj::automat(Personaj& Enemy, Turn& Turn_inamic, Turn& Turn_echipa) {
+    while (hp > 0 && Turn_echipa.get_hp() > 0 && (Enemy.get_hp() > 0 || Turn_inamic.get_hp() > 0))
     { // daca nici personajul, nici turnul din echipa lui n-au murit, continua sa joace
-        if (!search_enemy(Enemy) && !search_turn(Tower))
+        if (!search_enemy(Enemy) && !search_turn(Turn_inamic))
         {
             locatie_update();
             std::this_thread::sleep_for(std::chrono::seconds(1)); // viteza pasilor e masurata pe secunda
@@ -49,12 +49,15 @@ void Personaj::automat(Personaj& Enemy, Turn& Tower, Turn& Turn_echipa) {
                 else // daca nu il poate ataca, continua sa mearga
                 {
                     locatie_update();
+                    std::cout << "Reset\n";
+                    Turn_inamic.reset_position((speed < 0) * 42);
+                    Turn_echipa.reset_position((speed < 0) * 42);
                     std::this_thread::sleep_for(std::chrono::seconds(1)); // viteza pasilor e masurata pe secunda
                 }
-            if (search_turn(Tower))
+            if (search_turn(Turn_inamic))
             {
                 std::this_thread::sleep_for(std::chrono::milliseconds(hitspeed));
-                Tower.get_hit(damage);
+                Turn_inamic.get_hit(damage);
             }
         }
     }

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <thread>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "Turn.h"
 #include "Personaj.h"
@@ -14,6 +14,7 @@ int main() {
 
 	std::unique_ptr<Personaj[]> Carti = std::make_unique<Personaj[]>(5);
 
+	//Personaj Carti[5];
 	Carti[0] = Personaj("Vrajitor", 1400, 3, 6, 656, 256, 0, 1, 0);
 	Carti[1] = Personaj("Bowler", 2500, 2, 4, 1898, 262, 0, 0, 0);
 	Carti[2] = Personaj("Baby Dragon", 1500, 4, 4, 1051, 146, 1, 1, 0);
