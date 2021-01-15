@@ -16,4 +16,6 @@ add_executable(ConsoleApplication1
         Side.h
         Turn.cpp
         Turn.h)
+
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -Weffc++ -std=c++17")
 target_link_libraries(ConsoleApplication1)

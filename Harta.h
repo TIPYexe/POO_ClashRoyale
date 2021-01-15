@@ -7,8 +7,6 @@
 #include "Personaj.h"
 #include "Turn.h"
 
-class Personaj;
-
 class Harta
 {
 private:

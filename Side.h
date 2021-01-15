@@ -7,20 +7,19 @@ class Side : public Personaj {
 
 private:
 
-	int sens_deplasare;
-	int locatie;
+    int sens_deplasare = 0;
+    int locatie = 0;
 
 public:
 
-	Side():
-		Personaj{}, sens_deplasare{ 0 }, locatie{ 0 } {
-	}
-	
-	Side(const Personaj& Caracter, int locatie, int sens) {
-		Personaj::copy(Caracter);
-		Personaj::set_speed(sens);
-		Personaj::set_locatie(locatie);
-	}
+    Side() :
+            Personaj{}, sens_deplasare{0}, locatie{0} {
+    }
+
+    Side(const Personaj &Caracter, int locatie, int sens) : Personaj(Caracter) {
+        (*this).set_speed(sens);
+        (*this).set_locatie(locatie);
+    }
 
 };
 

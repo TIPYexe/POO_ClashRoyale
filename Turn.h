@@ -8,37 +8,36 @@
 
 class Personaj;
 
-class Turn
-{
+class Turn {
 private:
 
-	//friend class Personaj;
+    //friend class Personaj;
 
-	int hp;
-	int range;
-	int damage;
-	int hitspeed;
-	int locatie; // ori e 0 ori e 42
+    int hp = 0;
+    int range = 0;
+    int damage = 0;
+    int hitspeed = 0;
+    int locatie = 0; // ori e 0 ori e 42
 
 public:
 
-	Turn(int in_locatie) {
-		hp = 1000;
-		range = 7;
-		damage = 99;
-		hitspeed = 800;
-		locatie = in_locatie;
-	}
+    explicit Turn(int in_locatie) {
+        hp = 1000;
+        range = 7;
+        damage = 99;
+        hitspeed = 800;
+        locatie = in_locatie;
+    }
 
-	int get_damage() {
-		return damage;
-	}
+    int get_damage() {
+        return damage;
+    }
 
-	int get_hp() {
-		return hp;
-	}
+    int get_hp() {
+        return hp;
+    }
 
-	int get_locatie() {
+    int get_locatie() {
 		return locatie;
 	}
 
