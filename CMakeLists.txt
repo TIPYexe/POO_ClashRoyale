@@ -15,7 +15,7 @@ add_executable(ConsoleApplication1
         Personaj.h
         Side.h
         Turn.cpp
-        Turn.h)
+        Turn.h Personaj_factory.cpp Personaj_factory.h)
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -Weffc++ -std=c++17")
 target_link_libraries(ConsoleApplication1)
