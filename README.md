@@ -1,6 +1,6 @@
 # POO_ClashRoyale
 
-Recomandari:
+# Recomandari:
   - MinGW v8
   - C++ 17
   - rulati programul din consola sau powershell (fie din CodeBlocks fie din consola direct)
