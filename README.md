@@ -16,5 +16,21 @@
   
 # Coming soon
   - exceptii
+  
+# Rules
+  - echipa Friendly pleaca din dreapta hartii (deci Enemy din stanga);
+  - fiecare echipa este compusa din cate un turn si un personaj ales random dintre cele disponibile;
+  
+  ## Caractere
+  - fiecare personaj este unic: prin HP, pauza dintre atacuri, puterea atacului, range-ul de atac;
+  - unele persoanje merg pe pamant, iar altele zboara (niciuna nu le face pe amandoua);
+  - unele personaje le pot ataca doar pe cele terestre, in timp ce altele pot si aerian (niciuna nu poate ataca doar personaje zburatoare);
+  - personajele stiu sa mearga intr-o singura directie (deci nu se pot intoarce dupa persoanjul inamic, in cazul in care acesta trece pe langa ele);
+  
+  ## Turnuri
+  - turnurile ambelor echipe sunt identice: putere de atac, pauza intre atacui si range-ul de atac;
+  - nu isi pot ataca membrii echipei (fara friendly fire);
+  - nu-si pot schimba pozitia;
+  
 
 
