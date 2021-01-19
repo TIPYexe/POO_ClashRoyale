@@ -1,7 +1,8 @@
 # POO_ClashRoyale
 
-In directorul "Clase separate" se afla proiectul. 
-
-Am lasat constructorii in headere, doar metodele sunt puse in .cpp
-
-ConsoleApplication1.cpp este de fapt main-ul. Acolo se petrece magia.
+Recomandari:
+  - MinGW v8
+  - C++ 17
+  - rulati programul din consola sau powershell (fie din CodeBlocks fie din consola direct)
+      - g++ sa fie adaugat in PATH
+      - comanda: g++ -std=c++17 *.cpp -o NumeFisier -pthread
