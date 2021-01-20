@@ -12,7 +12,7 @@
   - mosteniri (clasa Side mosteneste clasa Personaj);
   - clasa factory cu metode statice;  
   - smart pointers: Lista de tipuri de Personaje este unique_ptr;
-  - exceptii
+  - exceptii;
   - definire clase, constructori, creare metode;
   
 # Rules
