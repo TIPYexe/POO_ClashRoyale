@@ -12,10 +12,8 @@
   - mosteniri (clasa Side mosteneste clasa Personaj);
   - clasa factory cu metode statice;  
   - smart pointers: Lista de tipuri de Personaje este unique_ptr;
-  - definire clase, constructori, creare metode;
-  
-# Coming soon
   - exceptii
+  - definire clase, constructori, creare metode;
   
 # Rules
   - echipa Friendly pleaca din dreapta hartii (deci Enemy din stanga);
