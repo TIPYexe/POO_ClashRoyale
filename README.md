@@ -10,7 +10,7 @@
 # Programul contine
   - multi-threading pentru fiecare personaj si turn in parte, si pentru afisarea hartii;
   - mosteniri (clasa Side mosteneste clasa Personaj);
-  - clasa factory cu metode statice;  
+  - factory cu metode statice;  
   - smart pointers: Lista de tipuri de Personaje este unique_ptr;
   - exceptii;
   - definire clase, constructori, creare metode;
