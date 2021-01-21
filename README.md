@@ -16,7 +16,7 @@
   - definire clase, constructori, creare metode;
   
 # Rules
-  - echipa Friendly pleaca din dreapta hartii (deci Enemy din stanga);
+  - echipa Friendly pleaca din stanga hartii (deci Enemy din dreapta);
   - fiecare echipa este compusa din cate un turn si un personaj ales random dintre cele disponibile;
   
   ## Caractere
