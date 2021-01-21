@@ -10,12 +10,11 @@ add_executable(ConsoleApplication1
         ConsoleApplication1.cpp
         Harta.cpp
         Harta.h
-        Header.h
         Personaj.cpp
         Personaj.h
         Side.h
         Turn.cpp
-        Turn.h Personaj_factory.cpp Personaj_factory.h)
+        Turn.h Personaj_factory.cpp Personaj_factory.h Elixir.cpp Elixir.h Side.cpp)
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -Weffc++ -std=c++17")
 target_link_libraries(ConsoleApplication1)

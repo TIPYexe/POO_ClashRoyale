@@ -1,10 +1,3 @@
-/*
-Nicolescu Robert Alexandru
-Grupa 252
-MinGW 10.2.0
-Tutore: Micluta Marius
-*/
-
 #ifndef CONSOLEAPPLICATION1_PERSONAJ_FACTORY_H
 #define CONSOLEAPPLICATION1_PERSONAJ_FACTORY_H
 

@@ -4,14 +4,10 @@
 #include <chrono>
 #include <thread>
 
-#include "Personaj.h"
-
-class Personaj;
+class Side;
 
 class Turn {
 private:
-
-    //friend class Personaj;
 
     int hp = 0;
     int range = 0;
@@ -37,7 +33,7 @@ public:
         return hp;
     }
 
-    int get_locatie() {
+    int get_locatie() const {
 		return locatie;
 	}
 
@@ -45,11 +41,7 @@ public:
 		hp -= damage_primit;
 	}
 
-	void automat(Personaj& Enemy);
-
-	void reset_position(int loc){
-	    locatie = loc;
-	}
+	void automat(Side &Enemy);
 };
 
 #endif // !TURN_H

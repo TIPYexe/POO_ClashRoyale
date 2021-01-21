@@ -4,7 +4,6 @@
 #include <chrono>
 #include <thread>
 
-#include "Personaj.h"
 #include "Turn.h"
 
 class Harta
@@ -15,11 +14,11 @@ private:
 
 public:
 
-	int game_end(Personaj& Enemy, Personaj& Friend, Turn& Inamic, Turn& Prieten);
+	static int game_end(Side& Pers_Enemy, Side& Pers_Friend, Turn& Turn_Enemy, Turn& Turn_Friend);
 
-	void afisare_camp(Personaj& Enemy, Personaj& Friend, Turn& Inamic, Turn& Prieten);
-
-	void stats(Personaj Enemy, Personaj Friend, Turn Inamic, Turn Prieten, int i);
+	void afisare_camp(Side& Pers_Enemy, Side& Pers_Friend, Turn& Turn_Enemy, Turn& Turn_Friend);
+    //, int nr, int nr_2, std::unique_ptr<Personaj[]> Carti
+	void stats(Side &Pers_Enemy, Side &Pers_Friend, Turn &Turn_Enemy, Turn &Turn_Friend, int i);
 };
 
 #endif

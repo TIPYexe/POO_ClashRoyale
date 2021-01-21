@@ -39,4 +39,3 @@
   - cu elixirul poate fi cumparat un nou personaj de acelasi fel cu cel de inceput, 
     dar numai atunci cand moare celalalt (deci nu putem avea 2 personaje la aceeasi echipa simultan);
 
-
