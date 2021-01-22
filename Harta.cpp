@@ -64,8 +64,10 @@ void Harta::afisare_camp(Side& Pers_Enemy, Side& Pers_Friend, Turn& Turn_Enemy, 
         //system("CLS");
         rlutil::cls();
         strcpy(field, "........................................."); //resetez toate pozitiile cu "."
-        field[Pers_Enemy.get_locatie() - 1] = Pers_Enemy.get_name()[0];			  //pun initialele numelor pesonajelor acolo unde trebuie
-        field[Pers_Friend.get_locatie() - 1] = Pers_Friend.get_name()[0];
+        if (Pers_Enemy.get_locatie() != 100)
+            field[Pers_Enemy.get_locatie() - 1] = Pers_Enemy.get_name()[0];			  //pun initialele numelor pesonajelor acolo unde trebuie
+        if (Pers_Friend.get_locatie() != 100)
+            field[Pers_Friend.get_locatie() - 1] = Pers_Friend.get_name()[0];
 
         rlutil::setColor(1);
         std::cout << "___";

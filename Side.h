@@ -57,12 +57,13 @@ public:
     // functia va fi apelata 1data/s si deci pot adauga la locatie
     // direct valoarea lui speed.
     void locatie_update() {
-        if (get_hp() > 0)
+        if (get_hp() > 0) {
             locatie += sens_deplasare;
-        if (locatie < 0)
-            locatie = 1;
-        if (locatie > 40)
-            locatie = 40;
+            if (locatie < 0)
+                locatie = 1;
+            if (locatie > 40)
+                locatie = 40;
+        }
     }
 
     void automat(Side &Enemy, Turn &Turn_inamic, Turn &Turn_echipa, int FullHP, int LocatieOriginala);
