@@ -9,12 +9,12 @@
   - am lasat doar doua personaje pentru ca intre ele se termina batalia in cel mai rezonabil timp;
 
 # Programul contine
-  - multi-threading pentru fiecare personaj si turn in parte, si pentru afisarea hartii;
+  - [multi-threading](https://github.com/TIPYexe/POO_ClashRoyale/blob/main/ConsoleApplication1.cpp#L61-L67) pentru fiecare personaj si turn in parte, si pentru afisarea hartii;
   - functie virtuala ([Elixir::printElixir](https://github.com/TIPYexe/POO_ClashRoyale/blob/e68358130cd3d86c33fa093938a929d9d68237fe/Elixir.cpp#L21-L23) [Side::printElixir](https://github.com/TIPYexe/POO_ClashRoyale/blob/main/Side.cpp#L45-L50));
   - mosteniri (clasa Side [mosteneste clasa Personaj si clasa Elixir](https://github.com/TIPYexe/POO_ClashRoyale/blob/main/Side.h#L9));
-  - factory cu metode statice;  
-  - smart pointers: Lista de tipuri de Personaje este unique_ptr;
-  - exceptii;
+  - [factory](https://github.com/TIPYexe/POO_ClashRoyale/blob/main/Personaj_factory.h#L8-L14) cu metode statice;  
+  - smart pointers: [Lista de tipuri de Personaje este unique_ptr](https://github.com/TIPYexe/POO_ClashRoyale/blob/main/ConsoleApplication1.cpp#L16);
+  - [exceptii](https://github.com/TIPYexe/POO_ClashRoyale/blob/main/ConsoleApplication1.cpp#L41-L53);
   - definire clase, constructori, creare metode;
   
 # Rules
