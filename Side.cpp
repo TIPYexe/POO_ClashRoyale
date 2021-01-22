@@ -29,7 +29,6 @@ void Side::automat(Side &Enemy, Turn &Turn_inamic, Turn &Turn_echipa, int FullHP
                 }
             }
         }
-
         if (get_hp() <= 0) {
             locatie = 100;
             if (getElixir() >= get_cost()) {
