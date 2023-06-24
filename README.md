@@ -3,6 +3,8 @@
 
 # 2D Clash Royale | Programare Orientata pe Obiecte | C++
 
+In acest proiect am implementat o versiune simplificata a jocului [Clash Royale](https://supercell.com/en/games/clashroyale/). Am pastrat toate regulile din joc, dar am limitat numarul de entitati de pe campul de lupta si am implementat doar o parte dintre caractere.
+
 # Recomandari:
   - MinGW v8
   - C++ 17
