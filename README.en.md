@@ -3,6 +3,8 @@
 
 # 2D Clash Royale | Object Oriented Programming | C++
 
+In this project, I have implemented a simplified version of the game [Clash Royale](https://supercell.com/en/games/clashroyale/). I have kept all the rules of the game, but I have limited the number of entities on the battlefield and have implemented only a portion of the characters.
+
 # Requirements:
   - MinGW v8
   - C++ 17
