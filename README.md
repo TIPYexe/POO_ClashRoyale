@@ -1,4 +1,7 @@
-# POO_ClashRoyale
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/TIPYexe/POO_ClashRoyale/blob/master/README.en.md)
+[![ro](https://img.shields.io/badge/lang-ro-green.svg)](https://github.com/TIPYexe/POO_ClashRoyale/blob/master/README.md)
+
+# 2D Clash Royale | Programare Orientata pe Obiecte | C++
 
 # Recomandari:
   - MinGW v8
